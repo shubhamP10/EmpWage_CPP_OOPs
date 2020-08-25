@@ -50,15 +50,11 @@ int EmployeeWageComputation::getJobType() {
     return (rand() % 3) + 1;
 }
 
-int main() {
-    
+int getToalWorkHours() {
     EmployeeWageComputation employee;
     Company company;
     srand(time(0));
-    int monthlyWage = 0;
     int workHrs = 0, totalWorkHrs = 0, totalWorkDays = 1;
-
-    cout << "Welcome To Employee Wage Computation" << endl << endl;
 
     while(totalWorkHrs < company.getMaxWorkHours() && totalWorkDays < company.getWorkDays()) {
         totalWorkDays++;
@@ -80,7 +76,19 @@ int main() {
         }
        totalWorkHrs += workHrs;
     }
+    return totalWorkHrs;
+}
 
+int main() {
+
+    Company company;
+    srand(time(0));
+    int monthlyWage = 0;
+    int totalWorkHrs = 0;
+
+    cout << "Welcome To Employee Wage Computation" << endl << endl;
+
+    totalWorkHrs = getToalWorkHours();
     cout << "Total Hours Worked: " << totalWorkHrs << endl;
     monthlyWage = totalWorkHrs * company.getWagePerHour();
     cout << "Monthly Wage = " << monthlyWage << endl;
