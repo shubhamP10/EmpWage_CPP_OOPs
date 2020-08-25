@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <unistd.h>
 
 using namespace std;
 
@@ -15,6 +16,17 @@ class EmployeeWageComputation {
         int getPartTimeHour();
 };
 
+class Company {
+    int WORK_DAYS_IN_MONTH = 20;
+    
+    public:
+        int getWorkDays();
+};
+
+int Company::getWorkDays() {
+    return this->WORK_DAYS_IN_MONTH;
+}
+
 int EmployeeWageComputation::getWagePerHour() {
     return this->WAGE_PER_HOUR;
 }
@@ -28,31 +40,43 @@ int EmployeeWageComputation::getPartTimeHour() {
 }
 
 int EmployeeWageComputation::getJobType() {
-    srand(time(0));
+    
     return (rand() % 3) + 1;
 }
 
 int main() {
     
     EmployeeWageComputation employee;
-    int jobType = employee.getJobType();
+    Company company;
+    srand(time(0));
+    int monthlyWage = 0;
+    int workHrs = 0, totalWorkHrs = 0;
 
     cout << "Welcome To Employee Wage Computation" << endl << endl;
 
-    switch(jobType) {
-        case 1:
-            cout << "Employee is Full Time\n";
-            employee.dailyWage = employee.getWagePerHour() * employee.getFullDayHour();
-            cout << "Wage = " << employee.dailyWage;
-            break;
-        case 2:
-            cout << "Employee is Part Time\n";
-            employee.dailyWage = employee.getWagePerHour() * employee.getPartTimeHour();
-            cout << "Wage = " << employee.dailyWage;
-            break;
-        default:
-            cout << "Employee is Absent\n";
+    for(int day = 1; day <= company.getWorkDays(); day++) {
+
+        int jobType = employee.getJobType();
+
+        switch(jobType) {
+            case 1:
+                workHrs = employee.getFullDayHour();
+                cout << "Day" << day << " WorkHr = " << workHrs << endl;
+                break;
+            case 2:
+                workHrs = employee.getPartTimeHour();
+                cout << "Day" << day << " WorkHr = " << workHrs << endl;
+                break;
+            default:
+                workHrs = 0;
+                cout << "Day" << day << " WorkHr = " << workHrs << endl;
+                break;
+        }
+       totalWorkHrs += workHrs;
     }
 
+    cout << "Total Hours Worked: " << totalWorkHrs << endl;
+    monthlyWage = totalWorkHrs * employee.getWagePerHour();
+    cout << "Monthly Wage = " << monthlyWage << endl;
     return 0;
 }
