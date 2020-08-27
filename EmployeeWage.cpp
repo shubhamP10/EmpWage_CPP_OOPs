@@ -88,6 +88,12 @@ string readString(std::istream& stream) {
     return i;
 }
 
+void displayWelcomeMessage() {
+    cout << "Welcome To Employee Wage Computation" << endl << endl;
+}
+
+
+
 int getToalWorkHours(Company company) {
     EmployeeWageComputation employee;
     srand(time(0));
@@ -117,7 +123,7 @@ int getToalWorkHours(Company company) {
 }
 
 Company readDataOfCompany(Company company, int companyCount) {
-    cout << "\nFor Company: " << companyCount+1 << endl;
+    cout << "\nFor Company: " << companyCount + 1 << endl;
     cout << "Enter Company Name: ";
     company.setCompanyName(readString(cin));
     cout << "Enter Wage Per Hour: ";
@@ -145,12 +151,10 @@ void displayCompanyData(Company company, int companyCount) {
     cout << "Monthly Wage = " << monthlyWage << endl;
 }
 
-int main() {
-
+void start() {
     Company company;
     int totalCompanies = 0;
     srand(time(0));
-    cout << "Welcome To Employee Wage Computation" << endl << endl;
 
     cout << "Enter Number of Companies: ";
     cin >> totalCompanies;
@@ -164,6 +168,13 @@ int main() {
     for(int companyCount = 0; companyCount < totalCompanies; companyCount++) {
         displayCompanyData(companies[companyCount], companyCount);
     }
+}
+
+int main() {
+
+    displayWelcomeMessage();
+
+    start();
 
     return 0;
 }
